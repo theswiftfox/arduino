@@ -16,7 +16,7 @@
 #define NOISE 50u
 
 
-uint16_t brightness_light = 32;
+uint16_t brightness_light = 24;
 uint16_t brightness_break = 255;
 
 struct SWC {
@@ -202,10 +202,8 @@ void loop() {
     digitalWrite(OUT_PIN_THROTTLE_1, LOW);
 
     if (newSignalSWC) {
-    //  noInterrupts();
       ulong dt = pulseSWC;
       newSignalSWC = false;
-    //  interrupts();
       // SWC - Three Way Switch
       if (checkFreq(dt, swc.stateOff)) {
         digitalWrite(OUT_PIN_SWC_1, LOW);
@@ -279,10 +277,8 @@ void loop() {
         } else if (lastThrottleState == throttle_state.accel) {
           analogWrite(OUT_PIN_THROTTLE_2, brightness_break);
         }
-      } else {
-        digitalWrite(OUT_PIN_THROTTLE_1, LOW);
       }
     }
     lastTime = timeNow;
-    //delay(20);
+    delay(20);
 }
